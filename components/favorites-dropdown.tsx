@@ -40,7 +40,7 @@ export function FavoritesDropdown({ isOpen, onClose }: FavoritesDropdownProps) {
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: -10, scale: 0.95 }}
             transition={{ duration: 0.25, ease: "easeOut" }}
-            className="absolute right-0 top-full mt-2 w-[calc(100vw-2rem)] sm:w-96 max-w-md rounded-lg border border-border bg-background shadow-lg z-50"
+            className="fixed left-1/2 top-0 z-50 w-full max-w-md -translate-x-1/2 mt-12 rounded-lg border border-border bg-background shadow-lg overflow-y-auto max-h-[80vh] sm:absolute sm:right-0 sm:top-full sm:mt-2 sm:w-96 sm:max-w-md sm:-translate-x-0 sm:mt-0 sm:max-h-none"
           >
             <div className="p-4">
               <h3 className="text-lg font-semibold mb-3">Favorites</h3>
