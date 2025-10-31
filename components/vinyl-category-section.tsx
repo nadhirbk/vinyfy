@@ -60,7 +60,7 @@ export function VinylCategorySection({
           </div>
           <Link
             href={`/category/${categoryId}`}
-            className="hidden sm:flex items-center gap-1 text-sm font-medium text-primary hover:text-primary/80 transition-colors"
+            className="hidden sm:flex items-center gap-1 text-sm font-medium text-primary hover:text-primary/80 transition-colors dark:text-[var(--highlight)] dark:hover:text-[var(--highlight)] dark:hover:opacity-90 dark:focus-visible:text-[var(--highlight)]"
           >
             See all
             <ChevronRight className="h-4 w-4" />
@@ -108,7 +108,7 @@ export function VinylCategorySection({
         {/* Mobile "See all" link */}
         <Link
           href={`/category/${categoryId}`}
-          className="flex sm:hidden items-center justify-center gap-1 text-sm font-medium text-primary hover:text-primary/80 transition-colors mt-4"
+          className="flex sm:hidden items-center justify-center gap-1 text-sm font-medium text-primary hover:text-primary/80 transition-colors mt-4 dark:text-[var(--highlight)] dark:hover:text-[var(--highlight)] dark:hover:opacity-90 dark:focus-visible:text-[var(--highlight)]"
         >
           See all
           <ChevronRight className="h-4 w-4" />
