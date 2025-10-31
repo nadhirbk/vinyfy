@@ -1,43 +1,43 @@
-"use client"
+"use client";
 
-import type React from "react"
+import type React from "react";
 
-import { motion } from "framer-motion"
-import Image from "next/image"
-import Link from "next/link"
-import type { Vinyl } from "@/lib/vinyl-data"
-import { Button } from "./ui/button"
-import { ShoppingCart, Heart } from "lucide-react"
-import { useCartStore } from "@/lib/cart-store"
-import { useFavoritesStore } from "@/lib/favorites-store"
-import { useToastStore } from "@/lib/toast-store"
+import { motion } from "framer-motion";
+import Image from "next/image";
+import Link from "next/link";
+import type { Vinyl } from "@/lib/vinyl-data";
+import { Button } from "./ui/button";
+import { ShoppingCart, Heart } from "lucide-react";
+import { useCartStore } from "@/lib/cart-store";
+import { useFavoritesStore } from "@/lib/favorites-store";
+import { useToastStore } from "@/lib/toast-store";
 
 interface VinylCardProps {
-  vinyl: Vinyl
-  index: number
+  vinyl: Vinyl;
+  index: number;
 }
 
 export function VinylCard({ vinyl, index }: VinylCardProps) {
-  const addItem = useCartStore((state) => state.addItem)
-  const { toggleFavorite, isFavorite } = useFavoritesStore()
-  const addToast = useToastStore((state) => state.addToast)
-  const favorite = isFavorite(vinyl.id)
+  const addItem = useCartStore((state) => state.addItem);
+  const { toggleFavorite, isFavorite } = useFavoritesStore();
+  const addToast = useToastStore((state) => state.addToast);
+  const favorite = isFavorite(vinyl.id);
 
   const handleAddToCart = (e: React.MouseEvent) => {
-    e.preventDefault()
-    addItem(vinyl)
-  }
+    e.preventDefault();
+    addItem(vinyl);
+  };
 
   const handleToggleFavorite = (e: React.MouseEvent) => {
-    e.preventDefault()
-    e.stopPropagation()
-    const wasAdded = !favorite
-    toggleFavorite(vinyl)
+    e.preventDefault();
+    e.stopPropagation();
+    const wasAdded = !favorite;
+    toggleFavorite(vinyl);
 
     if (wasAdded) {
-      addToast("Added to your favorites!")
+      addToast("Added to your favorites!");
     }
-  }
+  };
 
   return (
     <motion.div
@@ -46,11 +46,11 @@ export function VinylCard({ vinyl, index }: VinylCardProps) {
       viewport={{ once: true }}
       transition={{ duration: 0.3, delay: index * 0.05 }}
     >
-      <Link href={`/product/${vinyl.id}`} className="group block">
+      <Link href={`/product/${vinyl.id}`} className="block">
         <motion.div
           whileHover={{ scale: 1.02 }}
           transition={{ duration: 0.2 }}
-          className="relative flex h-full flex-col overflow-hidden rounded-lg bg-card"
+          className="relative flex h-full flex-col overflow-hidden rounded-lg bg-card hover:[&_.vinyl-title]:text-accent"
         >
           <motion.button
             onClick={handleToggleFavorite}
@@ -67,7 +67,9 @@ export function VinylCard({ vinyl, index }: VinylCardProps) {
             >
               <Heart
                 className={`h-3.5 w-3.5 transition-colors ${
-                  favorite ? "fill-accent stroke-accent" : "stroke-foreground/60"
+                  favorite
+                    ? "fill-accent stroke-accent"
+                    : "stroke-foreground/60"
                 }`}
               />
             </motion.div>
@@ -84,15 +86,19 @@ export function VinylCard({ vinyl, index }: VinylCardProps) {
 
           <div className="flex flex-1 flex-col space-y-2.5 p-3">
             <div className="flex-1 space-y-0.5">
-              <h3 className="line-clamp-2 text-sm font-bold text-foreground transition-colors group-hover:text-accent">
+              <h3 className="vinyl-title line-clamp-2 text-sm font-bold text-foreground transition-colors">
                 {vinyl.title}
               </h3>
-              <p className="truncate text-xs text-muted-foreground">{vinyl.artist}</p>
+              <p className="truncate text-xs text-muted-foreground">
+                {vinyl.artist}
+              </p>
             </div>
 
             <div className="flex items-center justify-between">
               <div className="space-y-0.5">
-                <p className="text-base font-bold text-foreground">${vinyl.price}</p>
+                <p className="text-base font-bold text-foreground">
+                  ${vinyl.price}
+                </p>
                 <p className="text-[10px] text-muted-foreground">
                   {vinyl.year} • {vinyl.condition}
                 </p>
@@ -111,5 +117,5 @@ export function VinylCard({ vinyl, index }: VinylCardProps) {
         </motion.div>
       </Link>
     </motion.div>
-  )
+  );
 }
