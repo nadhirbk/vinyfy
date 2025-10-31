@@ -40,12 +40,12 @@ export function SearchSpotlight({ isOpen, onClose }: SearchSpotlightProps) {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
-            className="fixed inset-0 z-50 bg-black/25 backdrop-blur-[12px]"
+            className="fixed inset-0 z-[100] bg-black/25 backdrop-blur-[12px]"
             onClick={onClose}
           />
 
           {/* Search Container */}
-          <div className="fixed inset-0 z-50 flex items-start justify-center pt-[20vh] px-4">
+          <div className="fixed inset-0 z-[100] flex items-start justify-center pt-[20vh] px-4 pointer-events-none">
             <motion.div
               initial={{ opacity: 0, scale: 0.95 }}
               animate={{ opacity: 1, scale: 1 }}
@@ -54,7 +54,7 @@ export function SearchSpotlight({ isOpen, onClose }: SearchSpotlightProps) {
                 duration: 0.35,
                 ease: [0.16, 1, 0.3, 1], // Smooth ease-out curve
               }}
-              className="w-full max-w-2xl"
+              className="w-full max-w-2xl pointer-events-auto"
               onClick={(e) => e.stopPropagation()}
             >
               <div className="relative rounded-lg border border-border bg-background shadow-2xl">
