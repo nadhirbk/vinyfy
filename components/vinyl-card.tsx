@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import type React from "react";
 
@@ -80,8 +80,7 @@ export function VinylCard({ vinyl, index }: VinylCardProps) {
               src={vinyl.image || "/placeholder.svg"}
               alt={`${vinyl.title} by ${vinyl.artist}`}
               fill
-              className="object-cover"
-            />
+              className="object-cover" sizes="(max-width: 640px) 200px, 220px" loading="lazy" decoding="async" />
           </div>
 
           <div className="flex flex-1 flex-col space-y-2.5 p-3">
@@ -100,7 +99,7 @@ export function VinylCard({ vinyl, index }: VinylCardProps) {
                   ${vinyl.price}
                 </p>
                 <p className="text-[10px] text-muted-foreground">
-                  {vinyl.year} • {vinyl.condition}
+                  {vinyl.year} â€¢ {vinyl.condition}
                 </p>
               </div>
 
@@ -119,3 +118,4 @@ export function VinylCard({ vinyl, index }: VinylCardProps) {
     </motion.div>
   );
 }
+
