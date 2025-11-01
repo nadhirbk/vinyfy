@@ -3,18 +3,11 @@
 import type React from "react";
 
 import { motion } from "framer-motion";
-import { Search } from "lucide-react";
-import { useState, useRef } from "react";
+import { useRef } from "react";
+import { AiVinylPromptInput } from "./ai-vinyl-prompt-input";
 
 export function Hero() {
-  const [searchQuery, setSearchQuery] = useState("");
   const ref = useRef<HTMLElement>(null);
-
-  const handleSearch = (e: React.FormEvent) => {
-    e.preventDefault();
-    // TODO: Implement search functionality
-    console.log("Searching for:", searchQuery);
-  };
 
   return (
     <section
@@ -47,32 +40,16 @@ export function Hero() {
             </p>
           </div>
 
-          <motion.form
+          <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 0.4, delay: 0.2 }}
-            onSubmit={handleSearch}
-            className="w-full max-w-xl lg:max-w-[480px]"
+            className="w-full"
           >
-            <div className="relative">
-              <input
-                type="text"
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-                placeholder="select in the catalog"
-                className="w-full rounded-full border-2 border-foreground bg-background px-6 py-3 sm:py-3.5 text-sm text-foreground placeholder:text-muted-foreground focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20 transition-all"
-              />
-              <button
-                type="submit"
-                className="absolute right-2 top-1/2 -translate-y-1/2 h-10 w-10 rounded-full bg-foreground flex items-center justify-center hover:bg-foreground/90 transition-colors"
-              >
-                <Search className="h-5 w-5 text-background" />
-              </button>
-            </div>
-          </motion.form>
+            <AiVinylPromptInput />
+          </motion.div>
         </motion.div>
       </div>
     </section>
   );
 }
-
