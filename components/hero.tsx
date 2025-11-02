@@ -48,7 +48,7 @@ export function Hero() {
             transition={{ duration: 0.4, delay: 0.2 }}
             className="w-full"
           >
-            <ChatInput>
+            <ChatInput className="border-2 border-zinc-500 dark:border-zinc-600 shadow-md"> 
               <ChatInputTextArea
                 value={inputValue}
                 onChange={e => setInputValue(e.target.value)}
