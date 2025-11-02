@@ -1,35 +1,35 @@
-"use client"
+"use client";
 
-import { useState, useEffect } from "react"
-import { motion, AnimatePresence } from "framer-motion"
-import { Search, X } from "lucide-react"
-import { Button } from "./ui/button"
+import { useState, useEffect } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import { Search, X } from "lucide-react";
+import { Button } from "./ui/button";
 
 interface SearchSpotlightProps {
-  isOpen: boolean
-  onClose: () => void
+  isOpen: boolean;
+  onClose: () => void;
 }
 
 export function SearchSpotlight({ isOpen, onClose }: SearchSpotlightProps) {
-  const [searchQuery, setSearchQuery] = useState("")
+  const [searchQuery, setSearchQuery] = useState("");
 
   useEffect(() => {
     const handleEscape = (e: KeyboardEvent) => {
       if (e.key === "Escape") {
-        onClose()
+        onClose();
       }
-    }
+    };
 
     if (isOpen) {
-      document.addEventListener("keydown", handleEscape)
-      document.body.style.overflow = "hidden"
+      document.addEventListener("keydown", handleEscape);
+      document.body.style.overflow = "hidden";
     }
 
     return () => {
-      document.removeEventListener("keydown", handleEscape)
-      document.body.style.overflow = "unset"
-    }
-  }, [isOpen, onClose])
+      document.removeEventListener("keydown", handleEscape);
+      document.body.style.overflow = "unset";
+    };
+  }, [isOpen, onClose]);
 
   return (
     <AnimatePresence>
@@ -68,7 +68,12 @@ export function SearchSpotlight({ isOpen, onClose }: SearchSpotlightProps) {
                     className="flex-1 bg-transparent text-lg text-foreground placeholder:text-muted-foreground focus:outline-none"
                     autoFocus
                   />
-                  <Button variant="ghost" size="icon" className="h-8 w-8 rounded-full" onClick={onClose}>
+                  <Button
+                    variant="ghost"
+                    size="icon"
+                    className="h-8 w-8 rounded-full"
+                    onClick={onClose}
+                  >
                     <X className="h-4 w-4" />
                   </Button>
                 </div>
@@ -79,7 +84,9 @@ export function SearchSpotlight({ isOpen, onClose }: SearchSpotlightProps) {
                     animate={{ opacity: 1, y: 0 }}
                     className="border-t border-border p-4"
                   >
-                    <p className="text-sm text-muted-foreground">Search results for "{searchQuery}" will appear here</p>
+                    <p className="text-sm text-muted-foreground">
+                      Search results for "{searchQuery}" will appear here
+                    </p>
                   </motion.div>
                 )}
 
@@ -95,5 +102,5 @@ export function SearchSpotlight({ isOpen, onClose }: SearchSpotlightProps) {
         </>
       )}
     </AnimatePresence>
-  )
+  );
 }

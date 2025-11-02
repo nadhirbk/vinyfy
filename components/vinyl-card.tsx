@@ -99,7 +99,7 @@ export function VinylCard({ vinyl, index }: VinylCardProps) {
                   ${vinyl.price}
                 </p>
                 <p className="text-[10px] text-muted-foreground">
-                  {vinyl.year} â€¢ {vinyl.condition}
+                  {vinyl.year} • {vinyl.condition}
                 </p>
               </div>
 
@@ -118,4 +118,7 @@ export function VinylCard({ vinyl, index }: VinylCardProps) {
     </motion.div>
   );
 }
+
+
+
 

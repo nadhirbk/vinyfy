@@ -1,15 +1,38 @@
 "use client";
 
 import type React from "react";
+import Link from "next/link";
 
 import { motion } from "framer-motion";
 import { useRef } from "react";
-import { ChatInput, ChatInputTextArea, ChatInputSubmit } from "@/components/ui/chat-input";
+import { AiBox } from "./ai-box";
 import { useState } from "react";
-
 export function Hero() {
   const ref = useRef<HTMLElement>(null);
   const [inputValue, setInputValue] = useState("");
+  const [loading, setLoading] = useState(false);
+  const [results, setResults] = useState<any[]>([]);
+  const [error, setError] = useState("");
+
+  async function handleSubmit() {
+    if (!inputValue.trim()) return;
+    setLoading(true);
+    setError("");
+    setResults([]);
+    try {
+      const res = await fetch("/api/recommend-vinyls", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ prompt: inputValue }),
+      });
+      const data = await res.json();
+      setResults(data.results || []);
+    } catch (err) {
+      setError("Une erreur est survenue. Réessaie !");
+    } finally {
+      setLoading(false);
+    }
+  }
 
   return (
     <section
@@ -34,11 +57,10 @@ export function Hero() {
               Premium Vinyl Collection
             </motion.p>
             <h1 className="text-balance text-3xl sm:text-4xl font-bold leading-tight tracking-tight text-foreground md:text-5xl lg:text-6xl">
-              Record & vinyl market
+              Et si vous trouviez votre prochaine pépite&nbsp;?
             </h1>
             <p className="text-pretty text-base sm:text-lg leading-relaxed text-muted-foreground md:text-xl">
-              Expand your vinyl record collection and find the perfect record
-              player with us
+              Exprimez vos goûts, on s'occupe du reste.
             </p>
           </div>
 
@@ -48,14 +70,7 @@ export function Hero() {
             transition={{ duration: 0.4, delay: 0.2 }}
             className="w-full"
           >
-            <ChatInput className="border-2 border-zinc-500 dark:border-zinc-600 shadow-md"> 
-              <ChatInputTextArea
-                value={inputValue}
-                onChange={e => setInputValue(e.target.value)}
-                placeholder="Décris tes goûts, artistes, styles..."
-              />
-              <ChatInputSubmit disabled={inputValue.trim().length === 0} />
-            </ChatInput>
+            <AiBox />
           </motion.div>
         </motion.div>
       </div>

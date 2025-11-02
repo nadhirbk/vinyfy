@@ -1,20 +1,22 @@
-import type React from "react"
-import type { Metadata } from "next"
-import { Analytics } from "@vercel/analytics/next"
-import { ToastProvider } from "@/components/toast-provider"
-import { ThemeProvider } from "@/components/theme-provider"
-import "./globals.css"
+import type React from "react";
+import type { Metadata } from "next";
+import { Analytics } from "@vercel/analytics/next";
+import { ToastProvider } from "@/components/toast-provider";
+import { ThemeProvider } from "@/components/theme-provider";
+import { Navbar } from "@/components/navbar";
+import { Footer } from "@/components/footer";
+import "./globals.css";
 
 export const metadata: Metadata = {
   title: "Vinyfy - Premium Vinyl Records",
   description: "Discover and collect premium vinyl records",
   generator: "v0.app",
-}
+};
 
 export default function RootLayout({
   children,
 }: Readonly<{
-  children: React.ReactNode
+  children: React.ReactNode;
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
@@ -27,16 +29,18 @@ export default function RootLayout({
       <body className="font-sans antialiased">
         <ThemeProvider
           attribute="class"
-          defaultTheme="light"
-          enableSystem={false}
+          defaultTheme="system"
+          enableSystem={true}
           storageKey="vinyfy-theme"
           disableTransitionOnChange
         >
+          <Navbar />
           {children}
+          <Footer />
           <ToastProvider />
           <Analytics />
         </ThemeProvider>
       </body>
     </html>
-  )
+  );
 }

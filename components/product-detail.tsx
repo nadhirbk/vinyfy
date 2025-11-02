@@ -1,38 +1,38 @@
-"use client"
+"use client";
 
-import { motion } from "framer-motion"
-import Image from "next/image"
-import { Button } from "./ui/button"
-import { ShoppingCart, Heart, Share2, Disc } from "lucide-react"
-import type { Vinyl } from "@/lib/vinyl-data"
-import { useState } from "react"
-import { useCartStore } from "@/lib/cart-store"
-import { useFavoritesStore } from "@/lib/favorites-store"
-import { useToast } from "@/lib/toast-store"
+import { motion } from "framer-motion";
+import Image from "next/image";
+import { Button } from "./ui/button";
+import { ShoppingCart, Heart, Share2, Disc } from "lucide-react";
+import type { Vinyl } from "@/lib/vinyl-data";
+import { useState } from "react";
+import { useCartStore } from "@/lib/cart-store";
+import { useFavoritesStore } from "@/lib/favorites-store";
+import { useToast } from "@/lib/toast-store";
 
 interface ProductDetailProps {
-  vinyl: Vinyl
+  vinyl: Vinyl;
 }
 
 export function ProductDetail({ vinyl }: ProductDetailProps) {
-  const [quantity, setQuantity] = useState(1)
-  const addItem = useCartStore((state) => state.addItem)
-  const { favorites, toggleFavorite } = useFavoritesStore()
-  const isFavorite = favorites.some((fav) => fav.id === vinyl.id)
-  const showToast = useToast((state) => state.showToast)
+  const [quantity, setQuantity] = useState(1);
+  const addItem = useCartStore((state) => state.addItem);
+  const { favorites, toggleFavorite } = useFavoritesStore();
+  const isFavorite = favorites.some((fav) => fav.id === vinyl.id);
+  const showToast = useToast((state) => state.showToast);
 
   const handleAddToCart = () => {
-    addItem(vinyl, quantity)
-  }
+    addItem(vinyl, quantity);
+  };
 
   const handleToggleFavorite = () => {
-    toggleFavorite(vinyl)
+    toggleFavorite(vinyl);
     if (!isFavorite) {
-      showToast(`${vinyl.title} added to favorites`)
+      showToast(`${vinyl.title} added to favorites`);
     } else {
-      showToast(`${vinyl.title} removed from favorites`)
+      showToast(`${vinyl.title} removed from favorites`);
     }
-  }
+  };
 
   return (
     <section className="py-12 md:py-20">
@@ -66,11 +66,15 @@ export function ProductDetail({ vinyl }: ProductDetailProps) {
             <div className="space-y-4">
               <div className="flex items-start justify-between gap-4">
                 <div className="space-y-2">
-                  <p className="text-sm font-medium uppercase tracking-wider text-primary">{vinyl.genre}</p>
+                  <p className="text-sm font-medium uppercase tracking-wider text-primary">
+                    {vinyl.genre}
+                  </p>
                   <h1 className="text-balance text-3xl font-bold tracking-tight text-foreground md:text-4xl">
                     {vinyl.title}
                   </h1>
-                  <p className="text-xl text-muted-foreground">{vinyl.artist}</p>
+                  <p className="text-xl text-muted-foreground">
+                    {vinyl.artist}
+                  </p>
                 </div>
 
                 <div className="flex gap-2">
@@ -80,17 +84,29 @@ export function ProductDetail({ vinyl }: ProductDetailProps) {
                     className="rounded-full bg-transparent"
                     onClick={handleToggleFavorite}
                   >
-                    <Heart className={`h-5 w-5 ${isFavorite ? "fill-accent stroke-accent" : ""}`} />
+                    <Heart
+                      className={`h-5 w-5 ${
+                        isFavorite ? "fill-accent stroke-accent" : ""
+                      }`}
+                    />
                   </Button>
-                  <Button variant="outline" size="icon" className="rounded-full bg-transparent">
+                  <Button
+                    variant="outline"
+                    size="icon"
+                    className="rounded-full bg-transparent"
+                  >
                     <Share2 className="h-5 w-5" />
                   </Button>
                 </div>
               </div>
 
               <div className="flex items-baseline gap-3">
-                <p className="text-4xl font-bold text-foreground">${vinyl.price}</p>
-                <p className="text-sm text-muted-foreground">Free shipping on orders over $50</p>
+                <p className="text-4xl font-bold text-foreground">
+                  ${vinyl.price}
+                </p>
+                <p className="text-sm text-muted-foreground">
+                  Free shipping on orders over $50
+                </p>
               </div>
             </div>
 
@@ -99,56 +115,63 @@ export function ProductDetail({ vinyl }: ProductDetailProps) {
               <div className="grid gap-3 text-sm">
                 <div className="flex justify-between">
                   <span className="text-muted-foreground">Release Year</span>
-                  <span className="font-medium text-foreground">{vinyl.year}</span>
+                  <span className="font-medium text-foreground">
+                    {vinyl.year}
+                  </span>
                 </div>
                 <div className="flex justify-between">
                   <span className="text-muted-foreground">Condition</span>
-                  <span className="font-medium text-foreground">{vinyl.condition}</span>
+                  <span className="font-medium text-foreground">
+                    {vinyl.condition}
+                  </span>
                 </div>
                 <div className="flex justify-between">
                   <span className="text-muted-foreground">Genre</span>
-                  <span className="font-medium text-foreground">{vinyl.genre}</span>
+                  <span className="font-medium text-foreground">
+                    {vinyl.genre}
+                  </span>
                 </div>
                 <div className="flex justify-between">
                   <span className="text-muted-foreground">Format</span>
-                  <span className="font-medium text-foreground">12" LP Vinyl</span>
+                  <span className="font-medium text-foreground">
+                    12" LP Vinyl
+                  </span>
                 </div>
               </div>
             </div>
 
-            <div className="space-y-4">
-              <div className="flex items-center gap-4">
-                <div className="flex items-center rounded-lg border border-border">
-                  <Button
-                    variant="ghost"
-                    size="icon"
-                    onClick={() => setQuantity(Math.max(1, quantity - 1))}
-                    className="rounded-r-none"
-                  >
-                    -
-                  </Button>
-                  <span className="w-12 text-center font-medium">{quantity}</span>
-                  <Button
-                    variant="ghost"
-                    size="icon"
-                    onClick={() => setQuantity(quantity + 1)}
-                    className="rounded-l-none"
-                  >
-                    +
-                  </Button>
-                </div>
-
+            <div className="flex gap-4">
+              <div className="flex items-center rounded-lg border border-border">
                 <Button
-                  size="lg"
-                  className="flex-1 bg-primary text-primary-foreground hover:bg-primary/90"
-                  onClick={handleAddToCart}
+                  variant="ghost"
+                  size="icon"
+                  onClick={() => setQuantity(Math.max(1, quantity - 1))}
+                  className="rounded-r-none"
                 >
-                  <ShoppingCart className="mr-2 h-5 w-5" />
-                  Add to Cart
+                  -
+                </Button>
+                <span className="w-12 text-center font-medium">{quantity}</span>
+                <Button
+                  variant="ghost"
+                  size="icon"
+                  onClick={() => setQuantity(quantity + 1)}
+                  className="rounded-l-none"
+                >
+                  +
                 </Button>
               </div>
-
-              <Button size="lg" variant="outline" className="w-full bg-transparent">
+              <Button
+                size="lg"
+                className="flex-1 bg-primary text-primary-foreground hover:bg-primary/90"
+                onClick={handleAddToCart}
+              >
+                <ShoppingCart className="mr-2 h-5 w-5" />
+                Add to Cart
+              </Button>
+              <Button
+                size="lg"
+                className="flex-1 bg-accent text-accent-foreground font-bold hover:bg-accent/90"
+              >
                 Buy Now
               </Button>
             </div>
@@ -157,17 +180,126 @@ export function ProductDetail({ vinyl }: ProductDetailProps) {
               <div className="flex items-start gap-3">
                 <Disc className="mt-1 h-5 w-5 text-primary" />
                 <div className="space-y-1">
-                  <h4 className="font-bold text-foreground">Authentic Vinyl Experience</h4>
+                  <h4 className="font-bold text-foreground">
+                    Authentic Vinyl Experience
+                  </h4>
                   <p className="text-sm leading-relaxed text-muted-foreground">
-                    Each record is carefully inspected and graded to ensure the highest quality. We guarantee authentic
-                    pressings with detailed condition reports.
+                    Each record is carefully inspected and graded to ensure the
+                    highest quality. We guarantee authentic pressings with
+                    detailed condition reports.
                   </p>
                 </div>
               </div>
             </div>
+
+            {/* Section Spotify & Tracklist pour Or Noir de Kaaris */}
+            {vinyl.title === "Or Noir" && vinyl.artist === "Kaaris" && (
+              <div className="space-y-8">
+                <div className="flex flex-col sm:flex-row gap-8 items-stretch">
+                  <div className="flex-1 space-y-2 min-w-[280px]">
+                    <h3 className="font-bold text-foreground text-xl">
+                      Écouter l’album
+                    </h3>
+                    <div className="rounded-lg overflow-hidden">
+                      <iframe
+                        src="https://open.spotify.com/embed/album/0Zj0SbVg3AQQaCVIS1TDN9?utm_source=generator&theme=0"
+                        width="100%"
+                        height="352"
+                        frameBorder="0"
+                        allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+                        loading="lazy"
+                        style={{ borderRadius: "12px" }}
+                        title="Spotify Or Noir Kaaris"
+                      ></iframe>
+                    </div>
+                  </div>
+                  <div className="flex-1 space-y-2 min-w-[200px]">
+                    <h3 className="font-bold text-foreground text-xl">
+                      Tracklist
+                    </h3>
+                    <div className="rounded-lg border border-border bg-card p-4 h-[352px] flex flex-col justify-center">
+                      <table className="w-full text-sm text-muted-foreground">
+                        <thead>
+                          <tr>
+                            <th className="text-left font-semibold pb-2">
+                              Titre
+                            </th>
+                            <th className="text-right font-semibold pb-2">
+                              Durée
+                            </th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr>
+                            <td>1. Or Noir</td>
+                            <td className="text-right">3:44</td>
+                          </tr>
+                          <tr>
+                            <td>2. Zoo</td>
+                            <td className="text-right">3:36</td>
+                          </tr>
+                          <tr>
+                            <td>3. Paradis ou enfer</td>
+                            <td className="text-right">3:38</td>
+                          </tr>
+                          <tr>
+                            <td>4. Chargé</td>
+                            <td className="text-right">3:32</td>
+                          </tr>
+                          <tr>
+                            <td>5. Se-vrak</td>
+                            <td className="text-right">3:32</td>
+                          </tr>
+                          <tr>
+                            <td>6. Bizon</td>
+                            <td className="text-right">3:36</td>
+                          </tr>
+                          <tr>
+                            <td>7. Tu dois des sous</td>
+                            <td className="text-right">3:36</td>
+                          </tr>
+                          <tr>
+                            <td>8. 2 et demi</td>
+                            <td className="text-right">3:36</td>
+                          </tr>
+                          <tr>
+                            <td>9. Je bibi</td>
+                            <td className="text-right">3:36</td>
+                          </tr>
+                          <tr>
+                            <td>10. Élégance</td>
+                            <td className="text-right">3:36</td>
+                          </tr>
+                          <tr>
+                            <td>11. J’suis passé chez So</td>
+                            <td className="text-right">3:36</td>
+                          </tr>
+                          <tr>
+                            <td>12. Kalash</td>
+                            <td className="text-right">3:36</td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                </div>
+                <div className="space-y-2">
+                  <h3 className="font-bold text-foreground text-xl">
+                    À propos de l’album
+                  </h3>
+                  <p className="text-sm text-muted-foreground">
+                    Or Noir est le premier album studio de Kaaris, sorti en
+                    2013. Véritable référence du rap français, il se distingue
+                    par ses productions sombres et son flow percutant. L’album a
+                    marqué une génération et contient plusieurs classiques du
+                    genre.
+                  </p>
+                </div>
+              </div>
+            )}
           </motion.div>
         </div>
       </div>
     </section>
-  )
+  );
 }

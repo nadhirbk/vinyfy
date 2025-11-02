@@ -1,13 +1,13 @@
 export interface Vinyl {
-  id: string
-  title: string
-  artist: string
-  price: number
-  image: string
-  genre: string
-  year: number
-  condition: string
-  category: "best-selling" | "new-releases" | "staff-picks"
+  id: string;
+  title: string;
+  artist: string;
+  price: number;
+  image: string;
+  genre: string;
+  year: number;
+  condition: string;
+  category: "best-selling" | "new-releases" | "staff-picks";
 }
 
 export const vinyls: Vinyl[] = [
@@ -99,14 +99,37 @@ export const vinyls: Vinyl[] = [
     condition: "Near Mint",
     category: "staff-picks",
   },
-]
+  {
+    id: "9",
+    title: "Or Noir",
+    artist: "Kaaris",
+    price: 27.99,
+    image: "/or-noir-kaaris.jpg",
+    genre: "Rap",
+    year: 2013,
+    condition: "Mint",
+    category: "new-releases",
+  },
+];
 
 export function getVinylsByCategory(category: Vinyl["category"]): Vinyl[] {
-  return vinyls.filter((vinyl) => vinyl.category === category)
+  return vinyls.filter((vinyl) => vinyl.category === category);
 }
 
 export const categories = [
-  { id: "best-selling" as const, name: "Best Selling", description: "Our most popular vinyl records" },
-  { id: "new-releases" as const, name: "New Releases", description: "Fresh additions to our collection" },
-  { id: "staff-picks" as const, name: "Staff Picks", description: "Handpicked favorites from our team" },
-]
+  {
+    id: "best-selling" as const,
+    name: "Best Selling",
+    description: "Our most popular vinyl records",
+  },
+  {
+    id: "new-releases" as const,
+    name: "New Releases",
+    description: "Fresh additions to our collection",
+  },
+  {
+    id: "staff-picks" as const,
+    name: "Staff Picks",
+    description: "Handpicked favorites from our team",
+  },
+];
