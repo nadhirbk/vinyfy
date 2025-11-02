@@ -4,10 +4,12 @@ import type React from "react";
 
 import { motion } from "framer-motion";
 import { useRef } from "react";
-import { AiVinylPromptInput } from "./ai-vinyl-prompt-input";
+import { ChatInput, ChatInputTextArea, ChatInputSubmit } from "@/components/ui/chat-input";
+import { useState } from "react";
 
 export function Hero() {
   const ref = useRef<HTMLElement>(null);
+  const [inputValue, setInputValue] = useState("");
 
   return (
     <section
@@ -46,7 +48,14 @@ export function Hero() {
             transition={{ duration: 0.4, delay: 0.2 }}
             className="w-full"
           >
-            <AiVinylPromptInput />
+            <ChatInput>
+              <ChatInputTextArea
+                value={inputValue}
+                onChange={e => setInputValue(e.target.value)}
+                placeholder="Décris tes goûts, artistes, styles..."
+              />
+              <ChatInputSubmit disabled={inputValue.trim().length === 0} />
+            </ChatInput>
           </motion.div>
         </motion.div>
       </div>
